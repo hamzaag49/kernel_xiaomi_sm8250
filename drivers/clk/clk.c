@@ -1100,8 +1100,14 @@ static int clk_core_prepare_lock(struct clk_core *core)
 {
 	int ret;
 
+#ifdef CONFIG_MACH_XIAOMI_SM8250
+	if (!oops_in_progress)
+#endif
 	clk_prepare_lock();
 	ret = clk_core_prepare(core);
+#ifdef CONFIG_MACH_XIAOMI_SM8250
+	if (!oops_in_progress)
+#endif
 	clk_prepare_unlock();
 
 	return ret;
